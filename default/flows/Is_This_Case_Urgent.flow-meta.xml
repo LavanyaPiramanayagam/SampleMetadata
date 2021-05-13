@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <choices>
+        <name>IsThisanUrgentCase</name>
+        <choiceText>{!Is_This_Case_Urgent}</choiceText>
+        <dataType>Boolean</dataType>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>Check_if_Case_is_urgent</name>
+        <label>Check if Case is urgent</label>
+        <locationX>656</locationX>
+        <locationY>326</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Case_is_Urgent</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Is_This_Case_Urgent</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Subject_Of_Case</targetReference>
+            </connector>
+            <label>Case is Urgent</label>
+        </rules>
+    </decisions>
+    <interviewLabel>Is This Case Urgent {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Is This Case Urgent</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordUpdates>
+        <name>Update_Subject_Of_Case</name>
+        <label>Update Subject Of Case</label>
+        <locationX>524</locationX>
+        <locationY>446</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>CaseNumber</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>00001000</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>[URGENT]</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <screens>
+        <name>Mark_if_Case_is_Urgent</name>
+        <label>Mark if Case is Urgent</label>
+        <locationX>656</locationX>
+        <locationY>206</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Check_if_Case_is_urgent</targetReference>
+        </connector>
+        <fields>
+            <name>Is_This_Case_Urgent</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Is This Case Urgent</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>530</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Mark_if_Case_is_Urgent</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+</Flow>
