@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <interviewLabel>Udate Case Description Based on User Input {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Udate Case Description Based on User Input</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordUpdates>
+        <name>Update_Case_Record</name>
+        <label>Update Case Record</label>
+        <locationX>174</locationX>
+        <locationY>380</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>CaseNumber</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>00001000</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>Enter_Description_of_Case</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <screens>
+        <name>Update_Case_Desc</name>
+        <label>Update Case Desc</label>
+        <locationX>174</locationX>
+        <locationY>211</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Update_Case_Record</targetReference>
+        </connector>
+        <fields>
+            <name>Enter_Description_of_Case</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>CaseDesc</elementReference>
+            </defaultValue>
+            <fieldText>Enter Description of Case</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>48</locationX>
+        <locationY>57</locationY>
+        <connector>
+            <targetReference>Update_Case_Desc</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>CaseDesc</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
